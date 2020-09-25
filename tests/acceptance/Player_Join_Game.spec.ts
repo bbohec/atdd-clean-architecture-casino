@@ -7,7 +7,7 @@ import { Game } from '../../src/core/entities/Game';
 import { FakeGameRepository } from '../../src/adapters/secondary/fakeGameRepository';
 import { fakeGameInteractor } from '../../src/adapters/secondary/fakeGameInteractor';
 describe(`
-Feature : Rejoindre un jeu
+Feature : Player join a game
     As a player,
     In order to play a game,
     I want to join the game
