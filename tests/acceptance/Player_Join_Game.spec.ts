@@ -1,12 +1,11 @@
 import 'mocha';
 import chai = require("chai");
 const expect = chai.expect;
-import { ERROR_NOT_ENOUGH_MONEY, WELCOME_GAME } from '../../src/core/port/Game';
+import { ERROR_NOT_ENOUGH_MONEY, GameRepositoryInteractor, WELCOME_GAME } from '../../src/core/port/Game';
 import { Player } from "../../src/core/entities/Player"
 import { Game } from '../../src/core/entities/Game';
 import { FakeGameRepository } from '../../src/adapters/secondary/fakeGameRepository';
 import { fakeGameInteractor } from '../../src/adapters/secondary/fakeGameInteractor';
-import { GameRepositoryInteractor } from '../../src/core/port/GameRepositoryInteractor';
 describe(`
 Feature : Rejoindre un jeu
     As a player,
@@ -16,10 +15,10 @@ Feature : Rejoindre un jeu
     const gameNameRoulette = "gameNameRoulette"
     const gameNamePoker = "gameNamePoker"
     const scenarios = [
-        {title:`Scenario: A player can join the game`,game:{name:gameNameRoulette,minimumBet:1},playerMoney:2,isPartOfGame:true,playerInformation:WELCOME_GAME(gameNameRoulette)},
-        {title:`Scenario: A player can't join the game because he don't have enough money`,game:{name:gameNamePoker,minimumBet:2},playerMoney:1,isPartOfGame:false,playerInformation:ERROR_NOT_ENOUGH_MONEY}
+        { title: `Scenario: A player can join the game`, game: { name: gameNameRoulette, minimumBet: 1 }, playerMoney: 2, isPartOfGame: true, playerInformation: WELCOME_GAME(gameNameRoulette) },
+        { title: `Scenario: A player can't join the game because he don't have enough money`, game: { name: gameNamePoker, minimumBet: 2 }, playerMoney: 1, isPartOfGame: false, playerInformation: ERROR_NOT_ENOUGH_MONEY }
     ]
-    const gameRepository:GameRepositoryInteractor = new FakeGameRepository(scenarios.map(scenario => new Game(scenario.game.name, scenario.game.minimumBet,new fakeGameInteractor)))
+    const gameRepository: GameRepositoryInteractor = new FakeGameRepository(scenarios.map(scenario => new Game(scenario.game.name, scenario.game.minimumBet, new fakeGameInteractor)))
     scenarios.forEach((scenario) => {
         describe(`Scenario: A player can join the game`, () => {
             const player = new Player(scenario.playerMoney, gameRepository)
@@ -33,7 +32,7 @@ Feature : Rejoindre un jeu
                 player.joinGame(scenario.game.name)
                 done()
             })
-            it((scenario.isPartOfGame)?"Then the player is part of game players":"Then the player is not part of game players", () => {
+            it((scenario.isPartOfGame) ? "Then the player is part of game players" : "Then the player is not part of game players", () => {
                 expect(player.isPartOfGame(player.interactWithGameRepository.retrieveGameByName(scenario.game.name))).is.equal(scenario.isPartOfGame)
             })
             it(`And the player is informed with the message ${scenario.playerInformation}`, () => {

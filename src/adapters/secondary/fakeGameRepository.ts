@@ -1,6 +1,4 @@
-import { GameContract } from "../../core/port/Game";
-import { GameRepositoryInteractor } from "../../core/port/GameRepositoryInteractor";
-
+import { GameContract, GameRepositoryInteractor } from "../../core/port/Game";
 export class FakeGameRepository implements GameRepositoryInteractor {
     constructor(games: Array<GameContract>) {
         this.gameRepository = games

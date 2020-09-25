@@ -1,9 +1,7 @@
-import { PlayerContract } from "../port/PlayerContract";
-import { GameContract } from "../port/Game";
-import { GameInteractor } from "../port/GameInteractor";
-
+import { PlayerContract } from "../port/Player";
+import { GameContract, GameInteractor } from "../port/Game";
 export class Game implements GameContract {
-    constructor(name: string, minimumBet: number,interactWithGame:GameInteractor) {
+    constructor(name: string, minimumBet: number, interactWithGame: GameInteractor) {
         this.name = name;
         this.minimumBet = minimumBet;
         this.interactWithGame = interactWithGame
@@ -12,7 +10,7 @@ export class Game implements GameContract {
         return this.interactWithGame.hasPlayer(playerToFind)
     }
     name: string;
-    addPlayer(player: PlayerContract):void {
+    addPlayer(player: PlayerContract): void {
         this.interactWithGame.addPlayer(player)
     }
     minimumBet: number;
